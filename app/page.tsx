@@ -2,14 +2,17 @@ import { LoginForm } from "@/components/auth/LoginForm";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4">
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center bg-gradient-to-b from-black via-red-950/20 to-black p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-5xl md:text-6xl font-bold text-red-600 mb-4 drop-shadow-lg">
             El Pueblo Duerme
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-gray-300 mb-2">
             Juego multijugador de mafia en tiempo real
+          </p>
+          <p className="text-sm text-gray-500">
+            ¿Puedes descubrir quién es la mafia antes de que sea demasiado tarde?
           </p>
         </div>
         <LoginForm />
