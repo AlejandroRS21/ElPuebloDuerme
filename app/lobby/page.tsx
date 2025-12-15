@@ -10,42 +10,53 @@ export default function LobbyPage() {
   const { user, logout } = useAuth(true);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              El Pueblo Duerme
-            </h1>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600 dark:text-gray-300">
-                {user?.username || 'Jugador'}
+    <div className="min-h-screen bg-gradient-to-b from-black via-red-950/20 to-black">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+            <div>
+              <h1 className="text-4xl font-bold text-red-600 mb-2">
+                Salas Disponibles
+              </h1>
+              <p className="text-gray-300">
+                Únete a una sala existente o crea una nueva para empezar a jugar
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-400">
+                👤 {user?.username || 'Jugador'}
               </span>
-              <Button variant="outline" onClick={logout}>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={logout}
+                className="border-gray-700 text-gray-300 hover:bg-gray-800"
+              >
                 Cerrar Sesión
               </Button>
             </div>
           </div>
-        </div>
-      </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex justify-between items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Salas Disponibles
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Únete a una sala o crea una nueva para empezar a jugar
-            </p>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-3">
+            <Button 
+              onClick={() => router.push('/lobby/create')}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              ➕ Crear Sala
+            </Button>
+            <Button 
+              onClick={() => router.push('/lobby/join')}
+              variant="outline"
+              className="border-red-900 text-red-500 hover:bg-red-900/20"
+            >
+              🔑 Unirse con Código
+            </Button>
           </div>
-          <Button onClick={() => router.push('/lobby/create')}>
-            Crear Sala
-          </Button>
         </div>
 
         <RoomList />
-      </main>
+      </div>
     </div>
   );
 }
