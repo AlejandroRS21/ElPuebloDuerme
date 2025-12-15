@@ -7,7 +7,13 @@ export async function POST(request: Request) {
   await new Promise(resolve => setTimeout(resolve, 500));
 
   // Buscar usuario en los datos mock
-  const user = MOCK_USERS.find(u => u.username === body.username || u.email === body.email);
+  // Buscar usuario en los datos mock
+  const MOCK_USERS_LOCAL = [
+    { username: 'jugador1', email: 'jugador1@ejemplo.com', password: 'password123', id: 'mock-user-1' },
+    // ... otros pueden ser añadidos si es necesario
+  ];
+  const user = MOCK_USERS.find(u => u.username === body.username || u.email === body.email) ||
+               MOCK_USERS_LOCAL.find(u => u.username === body.username || u.email === body.email);
 
   // Permitir login si el usuario existe (cualquier password por ahora para facilitar tests)
   // O permitir si es un usuario nuevo (simulado)

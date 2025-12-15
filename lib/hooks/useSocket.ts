@@ -7,7 +7,7 @@ export function useSocket() {
   useEffect(() => {
     // Connect on mount if not connected
     if (!socketManager.isConnected()) {
-      socketManager.connect();
+      // socketManager.connect();
     }
 
     // Cleanup on unmount

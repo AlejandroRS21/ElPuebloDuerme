@@ -19,13 +19,24 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
+    console.log('LoginForm submitted', data);
     setIsLoading(true);
     clearError();
-    const success = await login(data);
-    setIsLoading(false);
-    
-    if (success) {
-      router.push('/lobby');
+    try {
+        console.log('Calling login...');
+        const success = await login(data);
+        console.log('Login result:', success);
+        setIsLoading(false);
+        
+        if (success) {
+            console.log('Redirecting to /lobby');
+            router.push('/lobby');
+        } else {
+            console.error('Login failed (success=false)');
+        }
+    } catch (e) {
+        console.error('Login exception:', e);
+        setIsLoading(false);
     }
   };
 
