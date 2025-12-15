@@ -49,6 +49,13 @@ h1, h2, h3, h4, h5, h6, .font-title {
   background-attachment: fixed;
 }
 
+/* Mobile optimization for background */
+@media (max-width: 768px) {
+  .bg-pueblo {
+    background-attachment: scroll;
+  }
+}
+
 /* 3D Flip Animation */
 .flip-card {
   perspective: 1000px;

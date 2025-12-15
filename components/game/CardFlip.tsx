@@ -51,7 +51,12 @@ export function CardFlip({ role, revealed = false, onFlip, className = '' }: Car
   const cardData = role ? roleData[role] : null;
 
   return (
-    <div className={`flip-card ${isFlipped ? 'flipped' : ''} ${className}`} onClick={handleClick}>
+    <div className={`flip-card ${isFlipped ? 'flipped' : ''} ${className}`} onClick={handleClick} tabIndex={0} onKeyDown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick();
+      }
+    }}>
       <div className="flip-card-inner">
         {/* Front of card (hidden) */}
         <div className="flip-card-front">

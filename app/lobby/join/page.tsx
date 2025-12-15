@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useLobbyStore } from '@/lib/store/lobbyStore';
 import { useAuth } from '@/lib/hooks/useAuth';
 
+const MIN_ROOM_CODE_LENGTH = 4;
+
 export default function JoinLobbyPage() {
   const router = useRouter();
   const { user } = useAuth(true);
@@ -41,7 +43,8 @@ export default function JoinLobbyPage() {
     // Auto-format the code as user types (add spaces every 4 characters)
     let value = e.target.value.replace(/\s/g, '').toUpperCase();
     if (value.length > 0) {
-      value = value.match(/.{1,4}/g)?.join(' ') || value;
+      // More robust formatting that handles any length
+      value = value.replace(/(.{4})/g, '$1 ').trim();
     }
     setRoomCode(value);
     setError('');
@@ -137,7 +140,7 @@ export default function JoinLobbyPage() {
                 </Button>
                 <Button
                   type="submit"
-                  disabled={isJoining || roomCode.replace(/\s/g, '').length < 4}
+                  disabled={isJoining || roomCode.replace(/\s/g, '').length < MIN_ROOM_CODE_LENGTH}
                   className="flex-1 bg-red-600 hover:bg-red-700"
                 >
                   {isJoining ? 'Uniéndose...' : 'Unirse'}

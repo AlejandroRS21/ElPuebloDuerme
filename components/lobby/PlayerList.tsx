@@ -39,7 +39,7 @@ export function PlayerList({
             <div className="flex items-center gap-3">
               {/* Avatar placeholder */}
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center text-white font-bold">
-                {player.username.charAt(0).toUpperCase()}
+                {(player.username || '?').charAt(0).toUpperCase()}
               </div>
 
               {/* Player info */}

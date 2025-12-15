@@ -11,6 +11,13 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { useSocket } from '@/lib/hooks/useSocket';
 import { GamePhase, Role } from '@/types/game';
 
+// Role to action type mapping
+const ROLE_ACTIONS = {
+  [Role.MAFIA]: 'KILL',
+  [Role.DOCTOR]: 'HEAL',
+  [Role.DETECTIVE]: 'INVESTIGATE',
+} as const;
+
 export default function GamePage() {
   const params = useParams();
   const router = useRouter();
@@ -107,9 +114,7 @@ export default function GamePage() {
   const handleAction = () => {
     if (!selectedPlayerId || !currentPlayer?.role) return;
 
-    const actionType = currentPlayer.role === Role.MAFIA ? 'KILL' :
-                       currentPlayer.role === Role.DOCTOR ? 'HEAL' :
-                       currentPlayer.role === Role.DETECTIVE ? 'INVESTIGATE' : null;
+    const actionType = ROLE_ACTIONS[currentPlayer.role as keyof typeof ROLE_ACTIONS];
 
     if (!actionType) return;
 
