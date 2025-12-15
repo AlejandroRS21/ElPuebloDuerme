@@ -4,9 +4,11 @@ import { gameApi } from '@/lib/api/endpoints';
 
 interface GameState {
   game: Game | null;
+  currentPlayer: Player | null;
   myRole: Role | null;
   isLoading: boolean;
   error: string | null;
+  fetchGame: (gameId: string) => Promise<void>;
   setGame: (game: Game) => void;
   setMyRole: (role: Role) => void;
   updatePhase: (phase: GamePhase) => void;
@@ -19,9 +21,27 @@ interface GameState {
 
 export const useGameStore = create<GameState>((set, get) => ({
   game: null,
+  currentPlayer: null,
   myRole: null,
   isLoading: false,
   error: null,
+
+  fetchGame: async (gameId: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await gameApi.getGame(gameId);
+      if (response.success && response.data) {
+        const game = response.data;
+        // Try to find current player (this would need user id from auth)
+        // For now, we'll set it in the component
+        set({ game, isLoading: false });
+      } else {
+        set({ error: response.error || 'Failed to fetch game', isLoading: false });
+      }
+    } catch (error) {
+      set({ error: 'Failed to fetch game', isLoading: false });
+    }
+  },
 
   setGame: (game: Game) => {
     set({ game, error: null });
@@ -95,6 +115,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   reset: () => {
     set({
       game: null,
+      currentPlayer: null,
       myRole: null,
       isLoading: false,
       error: null,

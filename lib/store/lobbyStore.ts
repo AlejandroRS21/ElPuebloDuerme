@@ -8,6 +8,7 @@ interface LobbyState {
   isLoading: boolean;
   error: string | null;
   fetchRooms: () => Promise<void>;
+  fetchRoom: (roomId: string) => Promise<void>;
   createRoom: (data: CreateRoomDto) => Promise<Room | null>;
   joinRoom: (data: JoinRoomDto) => Promise<Room | null>;
   leaveRoom: () => Promise<boolean>;
@@ -33,6 +34,20 @@ export const useLobbyStore = create<LobbyState>((set, get) => ({
       }
     } catch (error) {
       set({ error: 'Failed to fetch rooms', isLoading: false });
+    }
+  },
+
+  fetchRoom: async (roomId: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await roomApi.getRoom(roomId);
+      if (response.success && response.data) {
+        set({ currentRoom: response.data, isLoading: false });
+      } else {
+        set({ error: response.error || 'Failed to fetch room', isLoading: false });
+      }
+    } catch (error) {
+      set({ error: 'Failed to fetch room', isLoading: false });
     }
   },
 
