@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Role } from '@/types/game';
 
 interface CardData {
@@ -12,6 +13,7 @@ interface CardData {
   color: string;
   borderColor: string;
   icon: string;
+  image: string;
 }
 
 const cards: CardData[] = [
@@ -24,6 +26,7 @@ const cards: CardData[] = [
     color: 'bg-gradient-to-br from-red-900 to-red-950',
     borderColor: 'border-red-700',
     icon: '🔪',
+    image: '/assets/cards/mafia.png'
   },
   {
     role: Role.DOCTOR,
@@ -34,6 +37,7 @@ const cards: CardData[] = [
     color: 'bg-gradient-to-br from-green-900 to-green-950',
     borderColor: 'border-green-700',
     icon: '💊',
+    image: '/assets/cards/doctor.png'
   },
   {
     role: Role.DETECTIVE,
@@ -44,6 +48,7 @@ const cards: CardData[] = [
     color: 'bg-gradient-to-br from-blue-900 to-blue-950',
     borderColor: 'border-blue-700',
     icon: '🔍',
+    image: '/assets/cards/detective.png'
   },
   {
     role: Role.VILLAGER,
@@ -54,6 +59,7 @@ const cards: CardData[] = [
     color: 'bg-gradient-to-br from-gray-800 to-gray-900',
     borderColor: 'border-gray-700',
     icon: '👤',
+    image: '/assets/cards/villager.png'
   },
 ];
 
@@ -67,7 +73,7 @@ export default function CardsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-red-950/20 to-black py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-black/70 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-red-600 text-center mb-4">
           Galería de Cartas
@@ -98,11 +104,18 @@ export default function CardsPage() {
           {filteredCards.map((card) => (
             <div
               key={card.role}
-              className={`${card.color} ${card.borderColor} border-2 rounded-lg p-6 cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl`}
+              className={`${card.color} ${card.borderColor} border-2 rounded-lg p-6 cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl flex flex-col items-center`}
               onClick={() => setSelectedCard(card)}
             >
-              <div className="text-center mb-4">
-                <div className="text-6xl mb-2">{card.icon}</div>
+              <div className="text-center mb-4 flex flex-col items-center w-full">
+                <div className="relative w-32 h-44 mb-4">
+                  <Image
+                    src={card.image}
+                    alt={card.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
                 <h3 className="text-2xl font-bold text-white mb-1">{card.name}</h3>
                 <span className="text-sm text-gray-300">{card.team}</span>
               </div>
