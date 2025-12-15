@@ -40,6 +40,9 @@ export function RoomList() {
   if (rooms.length === 0) {
     return (
       <div className="text-center py-12">
+        {useLobbyStore.getState().error && (
+            <p className="text-red-500 mb-4">Error: {useLobbyStore.getState().error}</p>
+        )}
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           No hay salas disponibles
         </p>
