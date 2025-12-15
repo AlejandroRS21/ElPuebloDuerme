@@ -1,6 +1,6 @@
-import { LoginForm } from "@/components/auth/LoginForm";
+import { RegisterForm } from "@/components/auth/RegisterForm";
 
-export default function Home() {
+export default function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4">
       <div className="w-full max-w-md">
@@ -9,10 +9,10 @@ export default function Home() {
             El Pueblo Duerme
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Juego multijugador de mafia en tiempo real
+            Únete a la aventura
           </p>
         </div>
-        <LoginForm />
+        <RegisterForm />
       </div>
     </div>
   );
